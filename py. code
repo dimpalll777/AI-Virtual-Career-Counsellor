@@ -1,0 +1,20 @@
+import streamlit as st
+from career_bot import recommend_career
+
+st.set_page_config(page_title="AI Virtual Career Counsellor", page_icon="🎓")
+
+st.title("🎓 AI Virtual Career Counsellor")
+st.write("Hi there! I'm your personal career buddy. Tell me what you love doing, and I'll suggest some career paths for you! 💬")
+
+# Chat input
+user_input = st.text_input("Tell me about your interests:")
+
+if st.button("Get Career Recommendation"):
+    if user_input:
+        response = recommend_career(user_input)
+        st.success(response)
+    else:
+        st.warning("Please enter your interests, babe! 😊")
+
+st.write("---")
+st.write("Made with 💖 by your biggest supporter, Dan!")
