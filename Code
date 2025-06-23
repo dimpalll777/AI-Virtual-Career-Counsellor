@@ -1,0 +1,39 @@
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+nltk.download('punkt')
+nltk.download('stopwords')
+
+# Define career fields and keywords
+career_paths = {
+    "Software Engineer": ["coding", "python", "java", "programming", "software", "developer"],
+    "Graphic Designer": ["design", "drawing", "photoshop", "illustration", "creativity"],
+    "Accountant": ["numbers", "finance", "accounting", "math", "money"],
+    "Doctor": ["medical", "doctor", "hospital", "medicine", "health"],
+    "Teacher": ["teaching", "education", "students", "learning", "school"],
+    "Entrepreneur": ["business", "startup", "management", "leader", "sales"]
+}
+
+def recommend_career(user_input):
+    user_input = user_input.lower()
+    tokens = word_tokenize(user_input)
+    tokens = [word for word in tokens if word not in stopwords.words('english')]
+
+    recommendations = []
+
+    for career, keywords in career_paths.items():
+        for word in tokens:
+            if word in keywords:
+                recommendations.append(career)
+                break  # Move to the next career if a match is found
+
+    if recommendations:
+        return f"Based on your interests, you might enjoy these careers: {', '.join(recommendations)}."
+    else:
+        return "Sorry, I couldn't find a match. Can you tell me more about your interests?"
+
+if __name__ == "__main__":
+    # For quick testing
+    user_input = input("Tell me about your interests: ")
+    print(recommend_career(user_input))
